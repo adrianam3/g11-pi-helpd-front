@@ -1,0 +1,108 @@
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-briefcase"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>PERSONAS</b></span>
+    </div>
+    <div>
+        <p-button [raised]="true" severity="success" routerLink="/persona/persona-form/" label="Nueva Persona"
+            icon="pi pi-plus" />
+    </div>
+</div>
+
+<div class="card card-w-title">
+    <p-table #dt [value]="personasEjemplo" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['cedula','nombreCompleto','email','celular','telefono','extension','descEstado']"
+        [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="idPersona"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros."
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-column sm:flex-row">
+                <p-button icon="pi pi-filter" severity="info" pTooltip="Mostrar filtros" tooltipPosition="top"
+                    (click)="showFilter()" />
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="cedula" style="min-width:5rem">
+                    C&eacute;dula <p-sortIcon field="cedula" />
+                </th>
+                <th pSortableColumn="nombreCompleto" style="min-width:5rem">
+                    Nombre <p-sortIcon field="nombreCompleto" />
+                </th>
+                <th pSortableColumn="direccion">
+                    Direcci&oacute;n <p-sortIcon field="direccion" />
+                </th>
+                <th pSortableColumn="email">
+                    E-mail <p-sortIcon field="email" />
+                </th>
+                <th pSortableColumn="celular">
+                    Celular <p-sortIcon field="celular" />
+                </th>
+                <th pSortableColumn="telefono">
+                    T&eacute;lefono <p-sortIcon field="telefono" />
+                </th>
+                <th pSortableColumn="extension">
+                    Extensi&oacute;n <p-sortIcon field="extension" />
+                </th>
+                <th pSortableColumn="descEstado">
+                    Estado <p-sortIcon field="descEstado" />
+                </th>
+                <th></th>
+            </tr>
+            <tr *ngIf="showSearch">
+                <th>
+                    <p-columnFilter type="text" field="cedula" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="nombreCompleto" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="email" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="direccion" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="celular" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="telefono" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="extension" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="descEstado" [showClearButton]="false" />
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td style="text-align: center;">{{rowData.cedula}}</td>
+                <td style="text-align: center;">{{rowData.nombreCompleto}}</td>
+                <td style="text-align: center;">{{rowData.direccion}}</td>
+                <td style="text-align: center;">{{rowData.email}}</td>
+                <td style="text-align: center;">{{rowData.celular}}</td>
+                <td style="text-align: center;">{{rowData.telefono}}</td>
+                <td style="text-align: center;">{{rowData.extension}}</td>
+                <td style="text-align: center;">{{rowData.descEstado}}</td>
+                <td>
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        routerLink="/persona/persona-form/{{rowData.idPersona}}" />
+                    <p-button icon="pi pi-ban" severity="danger" [rounded]="true" [outlined]="true" />
+                </td>
+            </tr>
+        </ng-template>
+        <!-- <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    In total there are {{ products ? products.length : 0 }} products.
+                </div>
+            </ng-template> -->
+    </p-table>
+</div>
